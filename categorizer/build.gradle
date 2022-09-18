@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+mainClassName = "org.example.categorizer.CategorizerApplication"
+
+jar {
+    archiveBaseName = 'categorizer-app'
+    archiveVersion =  '0.0.1'
+
+    manifest {
+        attributes("Implementation-Title": project.name,
+                "Implementation-Version": version,
+                "Main-Class": "${mainClassName}")
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.13.3"
+    implementation "com.fasterxml.jackson.core:jackson-core:2.13.3"
+    implementation "io.dropwizard:dropwizard-core:1.0.0"
+    implementation "org.ahocorasick:ahocorasick:0.6.3"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-all:1.10.19"
+}
+
+run {
+    args 'server', './configuration.yml'
+
+}
+
+test {
+    useJUnit()
+}
+
